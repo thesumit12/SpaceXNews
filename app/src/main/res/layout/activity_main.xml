@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="com.slakra.common.ProgressState"/>
+        <import type="android.view.View"/>
+        <variable
+            name="viewModel"
+            type="com.slakra.spacexnews.MainViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#F2F2F2"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        tools:context=".MainActivity">
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/topView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            app:cardElevation="6dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:paddingBottom="@dimen/margin_46">
+
+                <ImageView
+                    android:id="@+id/ivLogo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_logo"
+                    android:layout_marginTop="@dimen/margin_20" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_7"
+                    android:text="@string/spaceflights_news"
+                    android:textSize="16sp"
+                    android:textColor="@color/black"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etSearch"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_marginHorizontal="@dimen/margin_16"
+            android:drawableStart="@drawable/ic_search"
+            app:roundedCorner="@{true}"
+            android:elevation="@dimen/margin_8"
+            android:drawablePadding="@dimen/margin_16"
+            android:paddingHorizontal="@dimen/margin_16"
+            android:hint="@string/hint"
+            android:textColorHint="@color/hint_grey"
+            android:textColor="@color/text_black"
+            android:textSize="14sp"
+            android:singleLine="true"
+            android:text="@={viewModel.searchString}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/topView"
+            app:layout_constraintBottom_toBottomOf="@id/topView"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvNewsFeed"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/margin_16"
+            android:visibility="@{viewModel.state == ProgressState.ERROR ? View.GONE : View.VISIBLE, default = visible}"
+            android:layout_marginHorizontal="@dimen/margin_20"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/etSearch"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <include android:id="@+id/layoutNoResult"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            layout="@layout/layout_no_search_result"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/topView"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <include android:id="@+id/layoutError"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            layout="@layout/layout_error"
+            android:visibility="@{viewModel.state == ProgressState.ERROR ? View.VISIBLE : View.GONE, default = gone}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/topView"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <com.google.android.material.progressindicator.CircularProgressIndicator
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:indeterminate="true"
+            android:visibility="@{viewModel.state == ProgressState.LOADING ? View.VISIBLE : View.GONE, default = gone}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

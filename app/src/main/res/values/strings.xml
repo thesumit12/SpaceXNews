@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">SpaceXNews</string>
+    <string name="spaceflights_news">Spaceflights News</string>
+    <string name="hint">Search Spaceflight News</string>
+    <string name="no_results_found">No results found</string>
+    <string name="error">There is some technical issue. Please try again</string>
+</resources>

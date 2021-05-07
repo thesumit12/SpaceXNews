@@ -1,0 +1,9 @@
+include ':domain'
+include ':di'
+include ':data'
+include ':data'
+include ':common'
+include ':domain'
+include ':di'
+include ':app'
+rootProject.name = "SpaceXNews"

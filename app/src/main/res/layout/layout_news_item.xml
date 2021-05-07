@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="articleEntity"
+            type="com.slakra.domain.entity.ArticleEntity" />
+        <variable
+            name="listener"
+            type="com.slakra.spacexnews.NewsItemClickListener" />
+        <variable
+            name="searchString"
+            type="String" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin_20"
+        android:onClick="@{() -> listener.onNewsItemClick(articleEntity.url)}">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="298dp"
+            imageUrl="@{articleEntity.imageUrl}"
+            android:scaleType="centerInside"
+            android:paddingBottom="72dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/CardviewStyle"
+            android:layout_marginTop="196dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/margin_23"
+                android:paddingStart="@dimen/margin_20"
+                android:paddingEnd="@dimen/margin_16"
+                android:paddingBottom="@dimen/margin_16"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@{articleEntity.title}"
+                    android:textColor="@color/text_black"
+                    app:highlightString="@{searchString}"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:maxLines="2"
+                    android:ellipsize="end"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_7"
+                    android:text="@{articleEntity.summary}"
+                    android:textColor="@color/text_black"
+                    android:textSize="12sp"
+                    android:maxLines="6"
+                    android:ellipsize="end"/>
+
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
